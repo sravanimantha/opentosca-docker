@@ -1,7 +1,7 @@
 #
 # docker-compose build --force-rm [--no-cache [<SERVICE_NAME>...]]
 # docker-compose up -d --remove-orphans
-# docker-compose logs -f [<SERVICE_NAME>...]
+# docker-compose logs -f [--tail=1 <SERVICE_NAME>...]
 # docker-compose down -v --remove-orphans
 #
 version: '2'
@@ -14,6 +14,7 @@ services:
       - '9443:9443' # bps (https)
       - '9763:9763' # bps (http)
       # - '9975:2375' # dind (tcp)
+      - '8888:80'   # dind
     volumes:
       - '/usr/local/tomcat/webapps'
     environment:
@@ -34,9 +35,9 @@ services:
     network_mode: 'service:tomcat'
     environment:
       - PORT=2375
-      - DOCKER_DAEMON_ARGS=--dns 8.8.8.8 --dns 8.8.4.4 -D
+      # - DOCKER_DAEMON_ARGS=--dns 8.8.8.8 --dns 8.8.4.4 -D
       # Internal DNS settings to run it inside the univeristy network
-      # - DOCKER_DAEMON_ARGS=--dns 129.69.211.1 --dns 129.69.215.5 -D
+      - DOCKER_DAEMON_ARGS=--dns 129.69.211.1 --dns 129.69.215.5 -D
   opentosca-ui:
     build:
       context: ./opentosca-ui
