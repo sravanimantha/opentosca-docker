@@ -15,6 +15,7 @@ services:
       - '9763:9763' # bps (http)
       # - '9975:2375' # dind (tcp)
       - '8888:80'   # dind
+      - '9990-9999:9990-9999'   # dind
     volumes:
       - '/usr/local/tomcat/webapps'
     environment:
