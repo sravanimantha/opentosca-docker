@@ -14,8 +14,8 @@ services:
       - '9443:9443' # bps (https)
       - '9763:9763' # bps (http)
       # - '9975:2375' # dind (tcp)
-      - '8888:80'   # dind
-      - '9990-9999:9990-9999'   # dind
+      - '8888:80' # dind
+      - '9990-9999:9990-9999' # dind
     volumes:
       - '/usr/local/tomcat/webapps'
     environment:
@@ -39,6 +39,8 @@ services:
       # - DOCKER_DAEMON_ARGS=--dns 8.8.8.8 --dns 8.8.4.4 -D
       # Internal DNS settings to run it inside the univeristy network
       - DOCKER_DAEMON_ARGS=--dns 129.69.211.1 --dns 129.69.215.5 -D
+    volumes:
+      - ./demo:/opt
   opentosca-ui:
     build:
       context: ./opentosca-ui
